@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MORI Japanese Restaurant</title>
+<link rel="icon" type="image/jpeg" href="./logo.jpg?v=20261119">
+<link rel="apple-touch-icon" href="./logo.jpg?v=20261119">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+ --brown:#674936;
+ --dark:#38271f;
+ --red:#bd5147;
+ --cream:#fff9f1;
+ --pink:#f4e6dc;
+ --white:#fff;
+ --soft:#a18b7c;
+}
+
+* {
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+body {
+ font-family:'Mali',sans-serif;
+ background:var(--cream);
+ color:var(--dark);
+ scroll-behavior:smooth;
+}
+
+button,input,textarea,select {
+ font-family:inherit;
+}
+
+button {
+ cursor:pointer;
+ border:none;
+}
+
+header {
+ background:white;
+ padding:10px 5%;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:12px;
+ position:sticky;
+ top:0;
+ z-index:100;
+ box-shadow:0 3px 15px #60463815;
+}
+
+.brand {
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.logo {
+ width:65px;
+ height:65px;
+}
+
+.brand h1 {
+ color:var(--brown);
+ font-size:28px;
+}
+
+.brand small {
+ font-size:9px;
+ letter-spacing:3px;
+ color:var(--soft);
+}
+
+nav {
+ display:flex;
+ gap:5px;
+ flex-wrap:wrap;
+}
+
+nav button {
+ background:transparent;
+ color:var(--brown);
+ padding:10px 13px;
+ border-radius:25px;
+ font-size:12px;
+ font-weight:bold;
+ transition:background .2s ease, transform .2s ease;
+}
+
+.home-nav-icon {
+ width:18px;
+ height:18px;
+ margin-right:4px;
+ color:#5a3a2a;
+ vertical-align:-4px;
+}
+
+.home-nav-icon path {
+ stroke:currentColor;
+ stroke-width:1.8;
+ stroke-linecap:round;
+ stroke-linejoin:round;
+}
+
+.home-nav-icon .chimney {
+ fill:#e0ad5b;
+}
+
+.home-nav-icon .roof {
+ fill:#bd5147;
+ stroke:#5a3a2a;
+}
+
+.home-nav-icon .house {
+ fill:#fff0d7;
+}
+
+.home-nav-icon .window {
+ fill:#7fa7a3;
+ stroke:#5a3a2a;
+ stroke-width:.65;
+}
+
+nav button:hover {
+ background:var(--pink);
+ transform:translateY(-2px);
+}
+
+.cart-nav {
+ background:#f5e5df;
+}
+
+.staff-nav {
+ background:var(--brown);
+ color:white;
+}
+
+.page {
+ display:none;
+ min-height:70vh;
+}
+
+.page.active {
+ display:block;
+ animation:page-enter .45s ease both;
+}
+
+.container {
+ max-width:1150px;
+ margin:auto;
+ padding:35px 20px;
+}
+
+.btn {
+ background:var(--red);
+ color:white;
+ padding:11px 20px;
+ border-radius:25px;
+ font-weight:bold;
+ transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.btn:hover {
+ transform:translateY(-2px);
+ box-shadow:0 6px 15px #67493625;
+}
+
+.btn:active {
+ transform:translateY(0) scale(.98);
+}
+
+.btn-brown {
+ background:var(--brown);
+}
+
+.btn-light {
+ background:var(--pink);
+ color:var(--brown);
+}
+
+.btn-small {
+ padding:8px 14px;
+ font-size:12px;
+}
+
+.title {
+ font-size:27px;
+ color:var(--brown);
+ margin-bottom:8px;
+}
+
+.sub {
+ font-size:13px;
+ color:var(--soft);
+ margin-bottom:20px;
+}
+
+.panel {
+ background:white;
+ padding:23px;
+ border-radius:20px;
+ border:1px solid #eee3da;
+}
+
+.hero {
+ max-width:1150px;
+ margin:25px auto;
+ min-height:350px;
+ border-radius:25px;
+ padding:45px;
+ color:white;
+ display:flex;
+ align-items:center;
+ background:
+ linear-gradient(90deg,#35251eeb,#35251e55),
+ url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1400')
+ center/cover;
+ animation:hero-enter .7s ease both;
+}
+
+.hero > div {
+ animation:hero-copy-enter .7s .12s ease both;
+}
+
+.hero h2 {
+ font-size:38px;
+ line-height:1.6;
+}
+
+.hero p {
+ margin:12px 0;
+ line-height:2;
+}
+
+.story {
+ background:#f4e8dc;
+ padding:20px;
+ border-radius:18px;
+ margin-bottom:25px;
+ color:var(--brown);
+}
+
+.grid {
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:17px;
+}
+
+.card {
+ background:white;
+ border-radius:18px;
+ overflow:hidden;
+ border:1px solid #eee3da;
+ transition:transform .25s ease, box-shadow .25s ease;
+ animation:card-enter .45s ease backwards;
+}
+
+.card:nth-child(2) { animation-delay:.06s; }
+.card:nth-child(3) { animation-delay:.12s; }
+.card:nth-child(4) { animation-delay:.18s; }
+.card:nth-child(5) { animation-delay:.24s; }
+.card:nth-child(6) { animation-delay:.30s; }
+.card:nth-child(7) { animation-delay:.36s; }
+.card:nth-child(8) { animation-delay:.42s; }
+
+.card img {
+ transition:transform .4s ease;
+}
+
+.card:hover {
+ transform:translateY(-6px);
+ box-shadow:0 8px 20px #67493615;
+}
+
+.card:hover img {
+ transform:scale(1.08);
+}
+
+.card img {
+ width:100%;
+ height:220px;
+ display:block;
+ object-fit:contain;
+ object-position:center;
+ background:#000;
+ border:0;
+ border-radius:0;
+ box-shadow:none;
+ filter:contrast(1.08) saturate(1.08);
+}
+
+.card-info {
+ padding:13px;
+}
+
+.card h3 {
+ font-size:14px;
+ line-height:1.5;
+ margin-top:6px;
+ color:var(--brown);
+}
+
+.card p {
+ font-size:11px;
+ color:#958276;
+ line-height:1.8;
+ margin:9px 0;
+ min-height:40px;
+}
+
+.tag {
+ display:inline-block;
+ line-height:1.4;
+ margin-bottom:2px;
+ background:#f7eae3;
+ color:var(--red);
+ padding:4px 10px;
+ border-radius:20px;
+ font-size:10px;
+}
+
+.price {
+ color:var(--red);
+ font-weight:bold;
+ font-size:17px;
+}
+
+#detailPrice {
+ font-size:27px;
+ font-weight:700;
+ margin:14px 0;
+}
+
+.card-bottom {
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:5px;
+}
+
+.card-bottom button {
+ font-size:11px;
+ padding:8px 13px;
+}
+
+.search {
+ max-width:400px;
+ margin:12px 0 20px;
+}
+
+input,select,textarea {
+ width:100%;
+ padding:12px;
+ border:1px solid #e7d8cc;
+ border-radius:12px;
+ background:white;
+ outline:none;
+}
+
+textarea {
+ min-height:85px;
+ resize:vertical;
+}
+
+label {
+ display:block;
+ color:var(--brown);
+ font-size:13px;
+ font-weight:bold;
+ margin:13px 0 7px;
+}
+
+.categories {
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin:15px 0;
+}
+
+.categories button {
+ background:white;
+ color:var(--brown);
+ border:1px solid #eadbd0;
+ padding:9px 15px;
+ border-radius:25px;
+ transition:color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.categories button:hover {
+ transform:translateY(-2px);
+}
+
+.categories button.active {
+ background:var(--brown);
+ color:white;
+}
+
+.detail {
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:30px;
+ align-items:center;
+}
+
+.detail img {
+ width:100%;
+ height:350px;
+ object-fit:cover;
+ border-radius:20px;
+}
+
+.detail h2 {
+ font-size:28px;
+ color:var(--brown);
+}
+
+.detail p {
+ line-height:2;
+ color:#958276;
+ margin:15px 0;
+}
+
+.qty {
+ display:flex;
+ align-items:center;
+ gap:15px;
+ margin:12px 0;
+}
+
+.qty button {
+ width:34px;
+ height:34px;
+ background:var(--pink);
+ color:var(--brown);
+ border-radius:50%;
+ font-weight:bold;
+}
+
+.table-picker {
+ margin:20px 0 12px;
+ padding:0;
+ background:transparent;
+ border-radius:0;
+ color:var(--brown);
+}
+.table-select {
+ display:block;
+ width:100%;
+ margin:15px 0;
+ padding:15px 16px;
+ border:1px solid #eadbd0;
+ border-radius:14px;
+ background:#fffaf5;
+ color:var(--brown);
+ font:600 16px 'Mali',sans-serif;
+ cursor:pointer;
+}
+
+.table-select:focus {
+ border-color:var(--red);
+ box-shadow:0 0 0 3px #bd514722;
+}
+.selected-table-display {
+ margin:12px 0 0;
+ padding:12px 14px;
+ border:1px solid #eadbd0;
+ border-radius:12px;
+ background:#fffaf5;
+ color:#958276;
+ text-align:center;
+ font-weight:600;
+}
+
+.selected-table-display.has-selection {
+ border-color:#bd514755;
+ background:#f7eae3;
+ color:#bd5147;
+ font-weight:700;
+}
+
+.cart-group {
+ background:white;
+ border-radius:18px;
+ border:1px solid #eadbd0;
+ margin-bottom:20px;
+ overflow:hidden;
+}
+
+.cart-group-head {
+ background:#f4e8dc;
+ padding:16px 20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:10px;
+}
+
+.cart-item {
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:15px;
+ border-bottom:1px solid #eee5dd;
+}
+
+.cart-item img {
+ width:85px;
+ height:80px;
+ object-fit:cover;
+ border-radius:12px;
+}
+
+.cart-info {
+ flex:1;
+}
+
+.cart-info b {
+ color:var(--brown);
+}
+
+.cart-info small {
+ display:block;
+ color:#99877b;
+ font-size:11px;
+ margin-top:4px;
+}
+
+.cart-actions {
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ padding:15px;
+ justify-content:flex-end;
+}
+
+.total {
+ display:flex;
+ justify-content:space-between;
+ padding:18px 0;
+ font-size:19px;
+ color:var(--brown);
+ font-weight:bold;
+}
+
+.payment-options {
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+ margin:15px 0;
+}
+
+.pay-option {
+ padding:18px;
+ background:white;
+ border:2px solid #eadbd0;
+ border-radius:15px;
+ color:var(--brown);
+ transition:border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.pay-option:hover {
+ transform:translateY(-2px);
+}
+
+.pay-option.selected {
+ border-color:var(--red);
+ background:#fff4ef;
+}
+
+.qr {
+ display:none;
+ text-align:center;
+ background:#fff9f0;
+ padding:20px;
+ border-radius:15px;
+ margin:15px 0;
+}
+
+.qr img {
+ width:190px;
+ height:190px;
+}
+
+.success {
+ text-align:center;
+ padding:45px 20px;
+}
+
+.success .logo {
+ width:145px;
+ height:145px;
+}
+
+.login {
+ max-width:430px;
+ margin:40px auto;
+ text-align:center;
+}
+
+.login-page {
+ position:relative;
+ isolation:isolate;
+ overflow:hidden;
+}
+
+.login-page::before,
+.login-page::after {
+ content:"";
+ position:absolute;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+}
+
+.login-page::before {
+ background:
+  radial-gradient(ellipse at 15% 25%,#f4e6dcb3 0%,transparent 34%),
+  radial-gradient(ellipse at 85% 72%,#bd514722 0%,transparent 37%),
+  linear-gradient(125deg,#fff9f1,#f8eee5,#fff6ee);
+ background-size:150% 150%;
+ animation:login-bg-drift 20s ease-in-out infinite alternate;
+}
+
+.login-page::after {
+ opacity:.22;
+ background-image:
+  radial-gradient(circle at center,#bd5147 0 2px,transparent 2.5px),
+  radial-gradient(circle at center,#a18b7c 0 1.5px,transparent 2px);
+ background-size:170px 170px,240px 240px;
+ background-position:0 0,80px 110px;
+ animation:login-pattern-drift 32s linear infinite;
+}
+
+.sakura-petal {
+ position:absolute;
+ z-index:0;
+ top:-8%;
+ color:#bd5147;
+ font-size:22px;
+ opacity:0;
+ pointer-events:none;
+ text-shadow:0 3px 8px #67493625;
+ animation:sakura-float var(--float-time,20s) linear var(--float-delay,0s) infinite;
+}
+
+.petal-one { left:12%; --float-time:19s; --float-delay:-8s; }
+.petal-two { left:34%; font-size:17px; --float-time:23s; --float-delay:-15s; }
+.petal-three { left:58%; font-size:20px; --float-time:21s; --float-delay:-4s; }
+.petal-four { left:79%; font-size:16px; --float-time:25s; --float-delay:-12s; }
+.petal-five { left:92%; --float-time:18s; --float-delay:-17s; }
+
+.login-page .container {
+ position:relative;
+ z-index:1;
+}
+
+.login-page .login {
+ box-shadow:0 18px 50px #67493612;
+ animation:login-card-enter .6s .1s ease both;
+}
+
+.login-page.is-exiting .login {
+ animation:login-card-exit .42s ease-in both;
+ pointer-events:none;
+}
+
+.staff-page-enter .container {
+ animation:staff-page-enter .65s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.staff-layout {
+ display:grid;
+ grid-template-columns:190px 1fr;
+ gap:20px;
+}
+
+.sidebar {
+ background:var(--brown);
+ padding:17px;
+ border-radius:18px;
+ color:white;
+ height:max-content;
+}
+
+.sidebar h3 {
+ text-align:center;
+ margin:12px;
+}
+
+.sidebar button {
+ width:100%;
+ padding:12px;
+ background:none;
+ color:white;
+ text-align:left;
+ border-radius:10px;
+ font-size:12px;
+}
+
+.sidebar button:hover {
+ background:#ffffff20;
+}
+
+.stats {
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
+ margin:15px 0;
+}
+
+.stat {
+ background:white;
+ padding:20px;
+ border-radius:15px;
+ border:1px solid #eee;
+}
+
+.stat small {
+ color:#99877b;
+}
+
+.stat strong {
+ display:block;
+ color:var(--red);
+ font-size:23px;
+ margin-top:8px;
+}
+
+.order-card {
+ background:white;
+ padding:17px;
+ border-radius:15px;
+ margin:12px 0;
+ border:1px solid #eee;
+}
+
+.order-card p {
+ font-size:12px;
+ line-height:2;
+ color:#99877b;
+}
+
+.staff-row {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ background:white;
+ padding:13px;
+ border-radius:12px;
+ margin:10px 0;
+}
+
+.empty {
+ text-align:center;
+ padding:40px;
+ color:#99877b;
+}
+
+table {
+ width:100%;
+ border-collapse:collapse;
+ margin-top:15px;
+ font-size:12px;
+}
+
+td,th {
+ padding:10px;
+ border-bottom:1px solid #eee;
+ text-align:left;
+}
+
+th {
+ background:#fff9f0;
+ color:var(--brown);
+}
+
+footer {
+ background:#493329;
+ color:#fff9f0;
+ text-align:center;
+ padding:30px;
+ margin-top:35px;
+}
+
+footer p {
+ font-size:12px;
+ line-height:2;
+ color:#e8d7c9;
+}
+
+@keyframes page-enter {
+ from { opacity:0; transform:translateY(8px); }
+ to { opacity:1; transform:translateY(0); }
+}
+
+@keyframes hero-enter {
+ from { opacity:0; transform:translateY(12px) scale(.99); }
+ to { opacity:1; transform:translateY(0) scale(1); }
+}
+
+@keyframes hero-copy-enter {
+ from { opacity:0; transform:translateY(12px); }
+ to { opacity:1; transform:translateY(0); }
+}
+
+@keyframes card-enter {
+ from { opacity:0; transform:translateY(12px); }
+ to { opacity:1; transform:translateY(0); }
+}
+
+@keyframes login-bg-drift {
+ from { background-position:0% 50%; }
+ to { background-position:100% 50%; }
+}
+
+@keyframes login-pattern-drift {
+ to { background-position:170px 170px,0 0; }
+}
+
+@keyframes sakura-float {
+ 0% { opacity:0; transform:translate3d(-10px,-5vh,0) rotate(0deg); }
+ 12%,82% { opacity:.55; }
+ 100% { opacity:0; transform:translate3d(55px,110vh,0) rotate(300deg); }
+}
+
+@keyframes login-card-enter {
+ from { opacity:0; transform:translateY(16px) scale(.98); }
+ to { opacity:1; transform:translateY(0) scale(1); }
+}
+
+@keyframes login-card-exit {
+ to { opacity:0; transform:translateY(-12px) scale(.97); }
+}
+
+@keyframes staff-page-enter {
+ from { opacity:0; transform:translateX(32px); }
+ to { opacity:1; transform:translateX(0); }
+}
+
+@media(prefers-reduced-motion:reduce) {
+ *,*::before,*::after {
+  scroll-behavior:auto !important;
+  animation-duration:.01ms !important;
+  animation-iteration-count:1 !important;
+  transition-duration:.01ms !important;
+ }
+}
+
+@media(max-width:850px) {
+ .grid {
+  grid-template-columns:repeat(2,1fr);
+ }
+}
+
+@media(max-width:600px) {
+ header {
+  justify-content:center;
+  padding:10px;
+ }
+
+ nav {
+  width:100%;
+  justify-content:center;
+  gap:2px;
+ }
+
+ nav button {
+  font-size:10px;
+  padding:8px 7px;
+ }
+
+ .hero {
+  margin:12px;
+  padding:25px;
+  min-height:260px;
+ }
+
+ .hero h2 {
+  font-size:29px;
+ }
+
+ .container {
+  padding:25px 13px;
+ }
+
+ .card img {
+  height:175px;
+ }
+
+ .card-info {
+  padding:9px;
+ }
+
+ .card h3 {
+  font-size:12px;
+ }
+
+ .detail {
+  grid-template-columns:1fr;
+ }
+
+ .detail img {
+  height:240px;
+ }
+
+ .staff-layout {
+  grid-template-columns:1fr;
+ }
+
+ .stats {
+  grid-template-columns:1fr;
+ }
+
+ .payment-options {
+  grid-template-columns:1fr;
+ }
+
+ .cart-item img {
+  width:65px;
+  height:65px;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="brand">
+<img class="logo" src="./logo.jpg?v=header1" alt="MORI Japanese Restaurant">
+
+<div>
+<h1>MORI</h1>
+<small>JAPANESE RESTAURANT</small>
+</div>
+</div>
+
+<nav>
+<button class="home-nav" onclick="go('home')">
+<svg class="home-nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+<path class="chimney" d="M15.4 8.2V3.8h2.5v6.1z"/>
+<path class="roof" d="M3.5 10.6 10.8 4.5a1.9 1.9 0 0 1 2.4 0l7.3 6.1-1.5 1.8-7-5.8a1 1 0 0 0-1.3 0l-7 5.8z"/>
+<path class="house" d="M5.7 9v9.1c0 .9.7 1.6 1.6 1.6h9.4c.9 0 1.6-.7 1.6-1.6V9"/>
+<rect class="window" x="8.2" y="11.1" width="2.4" height="2.4" rx=".45"/>
+<rect class="window" x="12.2" y="11.1" width="2.4" height="2.4" rx=".45"/>
+<rect class="window" x="8.2" y="15" width="2.4" height="2.4" rx=".45"/>
+<rect class="window" x="12.2" y="15" width="2.4" height="2.4" rx=".45"/>
+</svg>
+หน้าแรก
+</button>
+<button onclick="go('products')">🍱 หน้าเมนูทั้งหมด</button>
+<button class="cart-nav" onclick="go('cart')">
+🛒 ตะกร้า (<span id="count">0</span>)
+</button>
+<button class="staff-nav" onclick="go('login')">พนักงาน</button>
+</nav>
+
+</header>
+
+<!-- หน้าแรก -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+<div>
+<small>WELCOME TO MORI ♡</small>
+<h2>อร่อยแบบญี่ปุ่น<br>อบอุ่นแบบโมริ</h2>
+<p>อาหารญี่ปุ่นทำด้วยใจ เสิร์ฟความสุขในทุกจาน</p>
+<button class="btn" onclick="go('products')">
+เลือกเมนูอาหาร ♡
+</button>
+</div>
+</div>
+
+<div class="container">
+
+<div class="story">
+<b>🌸 MORI'S LITTLE KITCHEN</b>
+<p>ความอร่อยเล็ก ๆ ที่ทำให้วันของคุณพิเศษขึ้น</p>
+</div>
+
+<h2 class="title">เมนูแนะนำจาก MORI</h2>
+<p class="sub">อร่อยทุกจาน เลือกเมนูที่ชอบได้เลยนะคะ ♡</p>
+
+<div class="grid" id="homeList"></div>
+
+<br>
+<button class="btn" onclick="go('products')">ดูเมนูทั้งหมด →</button>
+
+</div>
+</section>
+
+<!-- หน้าเมนูทั้งหมด ไม่มีเลือกโต๊ะ -->
+
+<section id="products" class="page">
+
+<div class="container">
+
+<h2 class="title">🍜 เมนูอาหาร MORI</h2>
+<p class="sub">เลือกอาหารจานโปรดของคุณได้เลยค่ะ ♡</p>
+
+<input class="search" id="search"
+placeholder="🔍 ค้นหาเมนูอาหาร..."
+oninput="renderProducts()">
+
+<div class="categories">
+<button class="active" onclick="filter('ทั้งหมด',this)">ทั้งหมด</button>
+<button onclick="filter('เส้น',this)">🍜 เมนูเส้น</button>
+<button onclick="filter('ซูชิ',this)">🍣 ซูชิ</button>
+<button onclick="filter('ข้าว',this)">🍚 เมนูข้าว</button>
+<button onclick="filter('ทานเล่น',this)">🥟 ทานเล่น</button>
+</div>
+
+<div class="grid" id="productList"></div>
+
+</div>
+</section>
+
+<!-- หน้ารายละเอียดสินค้าและเลือกโต๊ะ -->
+
+<section id="detail" class="page">
+
+<div class="container">
+
+<button class="btn btn-brown" onclick="go('products')">
+← กลับไปดูเมนู
+</button>
+
+<div class="panel" style="margin-top:20px">
+
+<div class="detail">
+
+<img id="detailImg" alt="อาหาร">
+
+<div>
+
+<h2 id="detailName"></h2>
+<small id="detailEnglish"></small>
+
+<p id="detailDesc"></p>
+
+<div class="price" id="detailPrice"></div>
+
+<div class="table-picker">
+
+<h3>🪑 เลือกโต๊ะของคุณ</h3>
+<p>กรุณาเลือกหมายเลขโต๊ะก่อนเพิ่มสินค้าลงตะกร้า</p>
+
+<select class="table-select" id="tableSelect" onchange="selectTable(this.value)">
+<option value="">เลือกหมายเลขโต๊ะ</option>
+</select>
+
+<p class="selected-table-display" id="selectedTableText" role="status" aria-live="polite">ยังไม่ได้เลือกโต๊ะ</p>
+
+</div>
+
+<label>จำนวนที่ต้องการ</label>
+
+<div class="qty">
+<button onclick="changeDetail(-1)">−</button>
+<b id="detailQty">1</b>
+<button onclick="changeDetail(1)">+</button>
+</div>
+<label>หมายเหตุเพิ่มเติม</label>
+
+<textarea id="detailNote"
+placeholder="เช่น ไม่ใส่ผัก เพิ่มไข่ ไม่ใส่ต้นหอม หรือแจ้งสิ่งที่ต้องการเพิ่มเติม..."></textarea>
+
+<br><br>
+
+<button class="btn" style="width:100%" onclick="addCart()">
+เพิ่มลงตะกร้า ♡
+</button>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- หน้าตะกร้า แยกตามโต๊ะ -->
+
+<section id="cart" class="page">
+
+<div class="container">
+
+<h2 class="title">🛒 ตะกร้าสินค้า</h2>
+<p class="sub">รายการอาหารจะแยกตามโต๊ะ สามารถชำระเงินทีละโต๊ะได้เลยค่ะ ♡</p>
+
+<div id="cartGroups"></div>
+
+</div>
+</section>
+
+<!-- หน้าชำระเงิน -->
+
+<section id="payment" class="page">
+
+<div class="container">
+
+<button class="btn btn-brown" onclick="go('cart')">
+← กลับไปตะกร้า
+</button>
+
+<h2 class="title" style="margin-top:20px">💳 ชำระเงิน</h2>
+
+<div class="panel">
+
+<h3 id="paymentTable" style="color:#674936"></h3>
+
+<div id="paymentItems"></div>
+
+<div class="total">
+<span>ยอดรวมสุทธิ</span>
+<span id="paymentTotal">0 ฿</span>
+</div>
+
+<h3>เลือกวิธีชำระเงิน</h3>
+
+<div class="payment-options">
+
+<button class="pay-option selected" id="cashBtn"
+onclick="selectPay('cash')">
+💵 เงินสด
+<br><small>ชำระเงินกับพนักงาน</small>
+</button>
+
+<button class="pay-option" id="qrBtn"
+onclick="selectPay('qr')">
+📱 QR Code
+<br><small>สแกนเพื่อชำระเงิน</small>
+</button>
+
+</div>
+
+<div id="cashBox">
+<div class="story">
+💵 กรุณาชำระเงินสดกับพนักงานค่ะ
+</div>
+</div>
+
+<div class="qr" id="qrBox">
+
+<h3>สแกน QR Code</h3>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=MORI-DEMO"
+alt="QR Code">
+
+
+
+</div>
+
+<br>
+
+<button class="btn" style="width:100%" onclick="confirmOrder()">
+ยืนยันการชำระเงิน ♡
+</button>
+
+</div>
+</div>
+</section>
+
+<!-- หน้าสั่งซื้อสำเร็จ -->
+
+<section id="success" class="page">
+
+<div class="container">
+
+<div class="panel success">
+
+<img class="logo" src="./logo.jpg?v=header1" alt="MORI Japanese Restaurant">
+
+<h2 style="color:#674936;margin:15px">
+สั่งซื้อสำเร็จแล้ว ♡
+</h2>
+
+<p>ขอบคุณที่มาอุดหนุนร้าน MORI นะคะ</p>
+
+<h3 id="successNumber"></h3>
+<p id="successTable"></p>
+<p id="successTotal"></p>
+
+<br>
+
+<button class="btn" onclick="go('cart')">
+กลับไปยังตะกร้า
+</button>
+
+<button class="btn btn-brown" onclick="go('home')">
+กลับหน้าหลัก
+</button>
+
+</div>
+</div>
+</section>
+
+<!-- เข้าสู่ระบบพนักงาน -->
+
+<section id="login" class="page login-page">
+
+<span class="sakura-petal petal-one" aria-hidden="true">✿</span>
+<span class="sakura-petal petal-two" aria-hidden="true">✿</span>
+<span class="sakura-petal petal-three" aria-hidden="true">✿</span>
+<span class="sakura-petal petal-four" aria-hidden="true">✿</span>
+<span class="sakura-petal petal-five" aria-hidden="true">✿</span>
+
+<div class="container">
+
+<div class="panel login">
+
+<h2 style="color:#674936">Welcome MORI Staff!</h2>
+<p>เข้าสู่ระบบสำหรับพนักงาน</p>
+
+<label>ชื่อพนักงาน</label>
+<input id="staffName" placeholder="กรอกชื่อพนักงาน">
+
+<label>รหัสร้าน</label>
+<input id="staffCode" type="password" placeholder="กรอกรหัสร้าน">
+
+<br><br>
+
+<button class="btn" style="width:100%" onclick="staffLogin()">
+เข้าสู่ระบบ
+</button>
+
+<p style="margin-top:12px;font-size:12px">
+รหัสร้านทดลอง: 123
+</p>
+
+</div>
+</div>
+</section>
+
+<!-- ระบบพนักงาน -->
+
+<section id="staff" class="page">
+
+<div class="container">
+
+<h2 class="title">ระบบจัดการร้าน MORI</h2>
+<p id="welcome"></p>
+<br>
+
+<div class="staff-layout">
+
+<aside class="sidebar">
+
+<h3>MORI ADMIN</h3>
+
+<button onclick="staffTab('dashboard')">📊 ภาพรวม</button>
+<button onclick="staffTab('sales')">💰 ยอดขาย</button>
+<button onclick="staffTab('orders')">📦 ออเดอร์</button>
+<button onclick="staffTab('productsStaff')">🍜 จัดการสินค้า</button>
+<button onclick="go('home')">ออกจากระบบ</button>
+
+</aside>
+
+<div>
+
+<div id="dashboardTab">
+
+<h3>ภาพรวมร้าน</h3>
+
+<div class="stats">
+
+<div class="stat">
+<small>ยอดขายสำเร็จ</small>
+<strong id="sales">0 ฿</strong>
+</div>
+
+<div class="stat">
+<small>ออเดอร์ทั้งหมด</small>
+<strong id="ordersCount">0</strong>
+</div>
+
+<div class="stat">
+<small>รอดำเนินการ</small>
+<strong id="pending">0</strong>
+</div>
+
+</div>
+
+</div>
+
+<div id="salesTab" style="display:none">
+
+<h3>💰 รายงานยอดขาย</h3>
+
+<label>ช่วงวันที่</label>
+<input type="text" id="salesDateRange" placeholder="เลือกวันเริ่มต้นและวันสิ้นสุด" autocomplete="off">
+
+<br><br>
+
+<button class="btn" onclick="renderSales()">ดูยอดขาย</button>
+
+<div class="panel" style="margin-top:15px">
+
+<h3>ยอดขายรวม</h3>
+<h2 class="price" id="reportTotal">0 ฿</h2>
+
+<p>ออเดอร์สำเร็จ: <b id="reportCount">0</b></p>
+
+<div id="salesMenu"></div>
+
+</div>
+</div>
+
+<div id="ordersTab" style="display:none">
+<h3>📦 รายการออเดอร์</h3>
+<div id="ordersList"></div>
+</div>
+
+<div id="productsStaffTab" style="display:none">
+
+<h3>จัดการสินค้า</h3>
+
+<div class="panel">
+
+<label>ชื่อเมนูภาษาไทย</label>
+<input id="newThai">
+
+<label>ชื่อภาษาอังกฤษ</label>
+<input id="newName">
+
+<label>ราคา</label>
+<input id="newPrice" type="number">
+
+<label>รายละเอียด</label>
+<input id="newDesc">
+
+<label>หมวดหมู่</label>
+<select id="newCat">
+<option>ข้าว</option>
+<option>เส้น</option>
+<option>ซูชิ</option>
+<option>ทานเล่น</option>
+</select>
+
+<label>URL รูปภาพ</label>
+<input id="newImg">
+
+<br><br>
+
+<button class="btn" onclick="addProduct()">+ เพิ่มสินค้า</button>
+
+</div>
+
+<div id="staffProducts"></div>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+
+<h2>MORI Japanese Restaurant ♡</h2>
+<p>おいしい時間を、あなたに。</p>
+<p>ส่งต่อความอร่อยและรอยยิ้มในทุกมื้อ</p>
+<p>© 2026 MORI</p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/th.js"></script>
+
+<script>
+let salesDateRangePicker = null;
+if (window.flatpickr && document.getElementById("salesDateRange")) {
+ salesDateRangePicker = flatpickr("#salesDateRange", {
+  mode: "range",
+  dateFormat: "d/m/Y",
+  locale: { ...flatpickr.l10ns.th, rangeSeparator: " ถึง " },
+  disableMobile: true,
+  allowInput: false
+ });
+}
+
+
+/* =========================
+   ข้อมูลเมนูอาหาร
+========================= */
+
+const defaultMenus = [
+
+{
+id:1,
+name:"Tonkotsu Ramen",
+thai:"ทงคตสึ",
+desc:"ราเมงน้ำซุปกระดูกหมูเข้มข้น พร้อมหมูชาชู ไข่ต้ม และต้นหอม",
+price:159,
+cat:"ข้าว",
+img:"menu_images/tonkotsu_ramen.png"
+},
+
+{
+id:2,
+name:"Salmon Sushi",
+thai:"ซูชิแซลมอน",
+desc:"ข้าวญี่ปุ่นปั้นพอดีคำ ท็อปด้วยปลาแซลมอนสด",
+price:129,
+cat:"ซูชิ",
+img:"menu_images/salmon_sushi.png"
+},
+
+{
+id:3,
+name:"Ebi Tempura",
+thai:"กุ้งเทมปุระ",
+desc:"กุ้งสดชุบแป้งทอดกรอบ เสิร์ฟพร้อมน้ำจิ้มเทมปุระ",
+price:119,
+cat:"ทานเล่น",
+img:"menu_images/ebi_tempura.png"
+},
+
+{
+id:4,
+name:"Japanese Gyoza",
+thai:"เกี๊ยวซ่าญี่ปุ่น",
+desc:"เกี๊ยวซ่าไส้หมูและผัก ทอดจนด้านล่างกรอบหอม",
+price:89,
+cat:"ทานเล่น",
+img:"menu_images/japanese_gyoza.png"
+},
+
+{
+id:5,
+name:"Yaki Udon",
+thai:"ยากิอุด้ง",
+desc:"เส้นอุด้งผัดซอสญี่ปุ่น เสิร์ฟพร้อมผักและเนื้อสัตว์",
+price:139,
+cat:"เส้น",
+img:"menu_images/yaki_udon.png"
+},
+
+{
+id:6,
+name:"Shoyu Ramen",
+thai:"โชยุราเมง",
+desc:"ราเมงน้ำซุปโชยุหอมกลมกล่อม พร้อมหมูชาชูและไข่ต้ม",
+price:149,
+cat:"เส้น",
+img:"menu_images/shoyu_ramen.png"
+},
+
+{
+id:7,
+name:"Unagi Sushi",
+thai:"ซูชิปลาไหล",
+desc:"ข้าวปั้นหน้าปลาไหลย่างซอสญี่ปุ่น หอมหวานเค็ม",
+price:149,
+cat:"ซูชิ",
+img:"menu_images/unagi_sushi.png"
+},
+
+{
+id:8,
+name:"Chicken Karaage",
+thai:"ไก่คาราอาเกะ",
+desc:"ไก่หมักเครื่องเทศญี่ปุ่นทอดกรอบ เนื้อนุ่มฉ่ำ",
+price:99,
+cat:"ทานเล่น",
+img:"menu_images/chicken_karaage.png"
+},
+
+{
+id:9,
+name:"Salmon Don",
+thai:"ข้าวหน้าปลาแซลมอน",
+desc:"ข้าวญี่ปุ่นเสิร์ฟพร้อมปลาแซลมอนและซอสสูตรพิเศษ",
+price:169,
+cat:"ข้าว",
+img:"menu_images/salmon_don.png"
+},
+
+{
+id:10,
+name:"Tonkatsu Don",
+thai:"ข้าวหน้าหมูทอดทงคัตสึ",
+desc:"ข้าวญี่ปุ่นหน้าหมูทอดกรอบ ราดซอสทงคัตสึเข้มข้น",
+price:139,
+cat:"ข้าว",
+img:"menu_images/tonkatsu_don.png"
+}
+
+];
+
+/* =========================
+   ระบบจัดเก็บข้อมูล
+========================= */
+
+// รีเซ็ต menus ถ้ายังใช้ URL เก่า (Unsplash)
+let _saved = JSON.parse(localStorage.getItem("moriMenus"));
+if (_saved && _saved[0] && _saved[0].img && _saved[0].img.includes("unsplash")) {
+  localStorage.removeItem("moriMenus");
+  _saved = null;
+}
+let menus = _saved || defaultMenus;
+
+let menuDataUpdated=false;
+let tonkotsuMenu = menus.find(m=>m.id===1 && m.name==="Tonkotsu Ramen");
+if(tonkotsuMenu) {
+ if(tonkotsuMenu.thai==="ทงคตสึราเมง") {
+  tonkotsuMenu.thai="ทงคตสึ";
+  menuDataUpdated=true;
+ }
+
+ if(tonkotsuMenu.cat==="เส้น") {
+  tonkotsuMenu.cat="ข้าว";
+  menuDataUpdated=true;
+ }
+}
+
+let menuImagePathUpdates={
+ "menu_images/tonkotsu_ramen.jpg":"menu_images/tonkotsu_ramen.png",
+ "menu_images/salmon_sushi.jpg":"menu_images/salmon_sushi.png",
+ "menu_images/ebi_tempura.jpg":"menu_images/ebi_tempura.png",
+ "menu_images/japanese_gyoza.jpg":"menu_images/japanese_gyoza.png",
+ "menu_images/yaki_udon.jpg":"menu_images/yaki_udon.png",
+ "menu_images/shoyu_ramen.jpg":"menu_images/shoyu_ramen.png",
+ "menu_images/unagi_sushi.jpg":"menu_images/unagi_sushi.png",
+ "menu_images/chicken_karaage.jpg":"menu_images/chicken_karaage.png",
+ "menu_images/salmon_don.jpg":"menu_images/salmon_don.png",
+ "menu_images/tonkatsu_don.jpg":"menu_images/tonkatsu_don.png"
+};
+menus.forEach(m=>{
+ if(menuImagePathUpdates[m.img]) {
+  m.img=menuImagePathUpdates[m.img];
+  menuDataUpdated=true;
+ }
+});
+
+if(menuDataUpdated) {
+ localStorage.setItem("moriMenus",JSON.stringify(menus));
+}
+
+let cart = JSON.parse(localStorage.getItem("moriCart")) || {};
+
+let orders = JSON.parse(localStorage.getItem("moriOrders")) || [];
+
+let selected = null;
+let selectedTable = "";
+let qty = 1;
+let category = "ทั้งหมด";
+let payMethod = "cash";
+let checkoutTable = "";
+let staff = "";
+
+function save() {
+ localStorage.setItem("moriMenus",JSON.stringify(menus));
+ localStorage.setItem("moriCart",JSON.stringify(cart));
+ localStorage.setItem("moriOrders",JSON.stringify(orders));
+}
+
+function money(n) {
+ return Number(n).toLocaleString("th-TH")+" ฿";
+}
+
+function tableTotal(table) {
+ return (cart[table] || []).reduce(
+  (sum,item)=>sum+item.price*item.qty,0
+ );
+}
+
+function totalItems() {
+ return Object.values(cart).flat().reduce(
+  (sum,item)=>sum+item.qty,0
+ );
+}
+
+function updateCount() {
+ document.getElementById("count").textContent=totalItems();
+}
+
+/* =========================
+   เปลี่ยนหน้า
+========================= */
+
+function go(id) {
+
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.remove("active");
+ });
+
+ document.getElementById(id).classList.add("active");
+
+ window.scrollTo(0,0);
+
+ if(id==="products") renderProducts();
+
+ if(id==="cart") renderCart();
+
+ if(id==="staff") dashboard();
+}
+
+/* =========================
+   แสดงเมนู
+========================= */
+
+function cards(list) {
+
+ return list.map(m=>`
+
+ <div class="card">
+
+ <img src="${m.img}"
+ alt="${m.thai}"
+ onerror="this.src='https://placehold.co/600x400/f4e8dc/604638?text=MORI'">
+
+ <div class="card-info">
+
+ <span class="tag">${m.cat}</span>
+
+ <h3>${m.thai}</h3>
+
+ <small>${m.name}</small>
+
+ <p>${m.desc}</p>
+
+ <div class="card-bottom">
+
+ <span class="price">${money(m.price)}</span>
+
+ <button class="btn btn-brown"
+ onclick="openDetail(${m.id})">
+ เลือก♡
+ </button>
+
+ </div>
+ </div>
+ </div>
+
+ `).join("");
+}
+
+function renderProducts() {
+
+ let q=(document.getElementById("search")?.value||"").toLowerCase();
+
+ let list=menus.filter(m=>
+  (category==="ทั้งหมด"||m.cat===category) &&
+  (m.name.toLowerCase().includes(q)||
+   m.thai.toLowerCase().includes(q))
+ );
+
+ document.getElementById("homeList").innerHTML=cards(menus.slice(0,4));
+
+ document.getElementById("productList").innerHTML=
+ list.length?cards(list):"<div class='empty'>ไม่พบเมนูอาหาร ♡</div>";
+}
+
+function filter(c,btn) {
+
+ category=c;
+
+ document.querySelectorAll(".categories button").forEach(b=>{
+  b.classList.remove("active");
+ });
+
+ btn.classList.add("active");
+
+ renderProducts();
+}
+
+/* =========================
+   หน้ารายละเอียดสินค้า
+========================= */
+
+function openDetail(id) {
+
+ selected=menus.find(m=>m.id===id);
+
+ qty=1;
+ selectedTable="";
+
+ document.getElementById("detailImg").src=selected.img;
+ document.getElementById("detailName").textContent=selected.thai;
+ document.getElementById("detailEnglish").textContent=selected.name;
+ document.getElementById("detailDesc").textContent=selected.desc;
+ document.getElementById("detailPrice").textContent=money(selected.price);
+ document.getElementById("detailQty").textContent=qty;
+ document.getElementById("detailNote").value="";
+
+ renderTables();
+
+ go("detail");
+}
+
+function changeDetail(n) {
+
+ qty=Math.max(1,qty+n);
+
+ document.getElementById("detailQty").textContent=qty;
+}
+
+/* =========================
+   เลือกโต๊ะในหน้าสินค้า
+========================= */
+
+function renderTables() {
+
+ let select=document.getElementById("tableSelect");
+
+ select.innerHTML='<option value="">เลือกหมายเลขโต๊ะ</option>';
+
+ for(let i=1;i<=10;i++) {
+  let table="โต๊ะ "+String(i).padStart(2,"0");
+  let option=document.createElement("option");
+  option.value=table;
+  option.textContent=table;
+  select.appendChild(option);
+ }
+
+ select.value=selectedTable;
+
+ updateSelectedTableDisplay();
+}
+
+function updateSelectedTableDisplay() {
+ let display=document.getElementById("selectedTableText");
+ display.textContent=selectedTable
+  ?"หมายเลขโต๊ะที่เลือก: "+selectedTable
+  :"ยังไม่ได้เลือกโต๊ะ";
+ display.classList.toggle("has-selection",Boolean(selectedTable));
+}
+function selectTable(table) {
+
+ selectedTable=table;
+
+ updateSelectedTableDisplay();
+}
+
+/* =========================
+   เพิ่มสินค้าแยกตามโต๊ะ
+========================= */
+
+function addCart() {
+
+ if(!selected) return;
+
+ if(!selectedTable) {
+  alert("กรุณาเลือกโต๊ะก่อนเพิ่มสินค้า ♡");
+  return;
+ }
+
+ if(!cart[selectedTable]) {
+  cart[selectedTable]=[];
+ }
+
+ let note=document.getElementById("detailNote").value.trim();
+
+ let key=selected.id+"_"+note;
+
+ let old=cart[selectedTable].find(x=>x.key===key);
+
+ if(old) {
+  old.qty+=qty;
+ } else {
+  cart[selectedTable].push({
+   ...selected,
+   key,
+   note,
+   qty
+  });
+ }
+
+ save();
+
+ updateCount();
+
+ alert("เพิ่ม "+selected.thai+" ลง "+selectedTable+" เรียบร้อยแล้ว ♡");
+
+ go("products");
+}
+
+/* =========================
+   ตะกร้าแยกโต๊ะ
+========================= */
+
+function renderCart() {
+
+ let box=document.getElementById("cartGroups");
+
+ let tables=Object.keys(cart).filter(
+  table=>cart[table] && cart[table].length>0
+ );
+
+ if(!tables.length) {
+  box.innerHTML=`
+  <div class="panel empty">
+  <h3>♡ ยังไม่มีสินค้าในตะกร้า ♡</h3>
+  <p>เลือกอาหารที่ชอบแล้วกลับมาได้เลยนะคะ</p>
+  <br>
+  <button class="btn" onclick="go('products')">เลือกอาหาร</button>
+  </div>`;
+  return;
+ }
+
+ box.innerHTML=tables.map(table=>`
+
+ <div class="cart-group">
+
+ <div class="cart-group-head">
+
+ <h3 style="color:#674936">🪑 ${table}</h3>
+
+ <span class="price">ยอดรวม ${money(tableTotal(table))}</span>
+
+ </div>
+
+ ${cart[table].map((item,index)=>`
+
+ <div class="cart-item">
+
+ <img src="${item.img}" alt="${item.thai}">
+
+ <div class="cart-info">
+
+ <b>${item.thai}</b>
+
+ <small>${money(item.price)} / ชิ้น</small>
+
+ <small>จำนวน ${item.qty} ชิ้น</small>
+
+ <small>หมายเหตุ: ${item.note||"ไม่มี"}</small>
+
+ <div class="qty">
+
+ <button onclick="changeCart('${table}',${index},-1)">−</button>
+
+ <b>${item.qty}</b>
+
+ <button onclick="changeCart('${table}',${index},1)">+</button>
+
+ </div>
+
+ </div>
+
+ <b class="price">${money(item.price*item.qty)}</b>
+
+ <button onclick="removeCart('${table}',${index})"
+ style="background:none;color:#bd5147">
+ ลบ
+ </button>
+
+ </div>
+
+ `).join("")}
+
+ <div class="cart-actions">
+
+ <button class="btn btn-light"
+ onclick="go('products')">
+ + เพิ่มอาหาร
+ </button>
+
+ <button class="btn"
+ onclick="checkout('${table}')">
+ ชำระเงิน ${table} →
+ </button>
+
+ </div>
+
+ </div>
+
+ `).join("");
+}
+
+/* =========================
+   แก้ไขจำนวนสินค้า
+========================= */
+
+function changeCart(table,index,n) {
+
+ cart[table][index].qty+=n;
+
+ if(cart[table][index].qty<=0) {
+  cart[table].splice(index,1);
+ }
+
+ if(cart[table].length===0) {
+  delete cart[table];
+ }
+
+ save();
+
+ updateCount();
+
+ renderCart();
+}
+
+function removeCart(table,index) {
+
+ if(!confirm("ต้องการลบสินค้านี้หรือไม่?")) return;
+
+ cart[table].splice(index,1);
+
+ if(cart[table].length===0) {
+  delete cart[table];
+ }
+
+ save();
+
+ updateCount();
+
+ renderCart();
+}
+
+/* =========================
+   เริ่มชำระเงินเฉพาะโต๊ะ
+========================= */
+
+function checkout(table) {
+
+ if(!cart[table] || cart[table].length===0) {
+  alert("โต๊ะนี้ยังไม่มีสินค้า");
+  return;
+ }
+
+ checkoutTable=table;
+
+ renderPayment();
+
+ go("payment");
+}
+
+function renderPayment() {
+
+ let items=cart[checkoutTable]||[];
+
+ document.getElementById("paymentTable").textContent=
+ "🪑 รายการชำระเงิน "+checkoutTable;
+
+ document.getElementById("paymentItems").innerHTML=
+ items.map(item=>`
+
+ <div class="cart-item">
+
+ <img src="${item.img}" alt="${item.thai}">
+
+ <div class="cart-info">
+
+ <b>${item.thai}</b>
+
+ <small>จำนวน ${item.qty} ชิ้น</small>
+
+ <small>หมายเหตุ: ${item.note||"ไม่มี"}</small>
+
+ </div>
+
+ <b>${money(item.price*item.qty)}</b>
+
+ </div>
+
+ `).join("");
+
+ document.getElementById("paymentTotal").textContent=
+ money(tableTotal(checkoutTable));
+
+}
+
+/* =========================
+   เลือกวิธีชำระเงิน
+========================= */
+
+function selectPay(method) {
+
+ payMethod=method;
+
+ document.getElementById("cashBtn").classList.toggle(
+  "selected",method==="cash"
+ );
+
+ document.getElementById("qrBtn").classList.toggle(
+  "selected",method==="qr"
+ );
+
+ document.getElementById("cashBox").style.display=
+ method==="cash"?"block":"none";
+
+ document.getElementById("qrBox").style.display=
+ method==="qr"?"block":"none";
+}
+
+/* =========================
+   ยืนยันการชำระเงิน
+========================= */
+
+function confirmOrder() {
+
+ let items=cart[checkoutTable];
+
+ if(!items || items.length===0) {
+  alert("ไม่พบรายการสินค้าของโต๊ะนี้");
+  go("cart");
+  return;
+ }
+
+ let orderId="MR"+Date.now().toString().slice(-7);
+
+ let orderTotal=tableTotal(checkoutTable);
+
+ let newOrder={
+
+ id:orderId,
+
+ table:checkoutTable,
+
+ items:JSON.parse(JSON.stringify(items)),
+
+ total:orderTotal,
+
+ method:payMethod,
+
+ status:"เสร็จสิ้น",
+
+ date:new Date().toLocaleString("th-TH"),
+
+ timestamp:Date.now()
+
+ };
+
+ orders.push(newOrder);
+
+ /* ล้างเฉพาะโต๊ะที่กำลังชำระเงิน */
+
+ delete cart[checkoutTable];
+
+ save();
+
+ updateCount();
+
+ document.getElementById("successNumber").textContent=
+ "ORDER #"+orderId;
+
+ document.getElementById("successTable").textContent=
+ "ชำระเงินเรียบร้อยแล้ว "+checkoutTable;
+
+ document.getElementById("successTotal").textContent=
+ "ยอดชำระ "+money(orderTotal);
+
+ go("success");
+}
+
+/* =========================
+   ระบบเข้าสู่ระบบพนักงาน
+========================= */
+
+function staffLogin() {
+
+ let loginPage=document.getElementById("login");
+
+ if(loginPage.classList.contains("is-exiting")) return;
+
+ let name=document.getElementById("staffName").value.trim();
+
+ let code=document.getElementById("staffCode").value.trim();
+
+ if(!name) {
+  alert("กรุณากรอกชื่อพนักงาน");
+  return;
+ }
+
+ if(code!=="123") {
+  alert("รหัสร้านไม่ถูกต้อง");
+  return;
+ }
+
+ staff=name;
+
+ document.getElementById("welcome").textContent=
+ "ยินดีต้อนรับ คุณ "+staff+" ♡";
+
+ loginPage.classList.add("is-exiting");
+
+ let transitionDelay=window.matchMedia("(prefers-reduced-motion: reduce)").matches?0:420;
+
+ window.setTimeout(()=>{
+  let staffPage=document.getElementById("staff");
+  let staffContent=staffPage.querySelector(".container");
+
+  staffPage.classList.add("staff-page-enter");
+  staffContent.addEventListener("animationend",()=>{
+   staffPage.classList.remove("staff-page-enter");
+  },{once:true});
+
+  go("staff");
+  loginPage.classList.remove("is-exiting");
+
+  staffTab("dashboard");
+ },transitionDelay);
+}
+
+/* =========================
+   เมนูระบบพนักงาน
+========================= */
+
+function staffTab(tab) {
+
+ ["dashboard","sales","orders","productsStaff"].forEach(x=>{
+  document.getElementById(x+"Tab").style.display=
+  x===tab?"block":"none";
+ });
+
+ if(tab==="dashboard") dashboard();
+
+ if(tab==="sales") renderSales();
+
+ if(tab==="orders") renderOrders();
+
+ if(tab==="productsStaff") renderStaffProducts();
+}
+
+/* =========================
+   ภาพรวมร้าน
+========================= */
+
+function dashboard() {
+
+ document.getElementById("sales").textContent=
+ money(orders.reduce((s,o)=>s+o.total,0));
+
+ document.getElementById("ordersCount").textContent=
+ orders.length;
+
+ document.getElementById("pending").textContent=
+ Object.values(cart).filter(x=>x.length>0).length;
+}
+
+/* =========================
+   รายการออเดอร์
+========================= */
+
+function renderOrders() {
+
+ let box=document.getElementById("ordersList");
+
+ box.innerHTML=orders.length?
+
+ orders.slice().reverse().map(o=>`
+
+ <div class="order-card">
+
+ <b>ORDER #${o.id}</b>
+
+ <h3 style="color:#bd5147">${o.table}</h3>
+
+ <p>วันที่: ${o.date}</p>
+
+ <p>วิธีชำระเงิน: ${o.method==="cash"?"เงินสด":"QR Code"}</p>
+
+ ${o.items.map(x=>`
+ <p>• ${x.thai} x ${x.qty} = ${money(x.price*x.qty)}</p>
+ `).join("")}
+
+ <h3>ยอดรวม ${money(o.total)}</h3>
+
+ <p>สถานะ: ${o.status}</p>
+
+ </div>
+
+ `).join("")
+
+ :"<div class='empty'>ยังไม่มีออเดอร์</div>";
+}
+
+/* =========================
+   รายงานยอดขาย
+========================= */
+
+function renderSales() {
+
+ let selectedDates=salesDateRangePicker?.selectedDates||[];
+ let startDate=selectedDates[0]||null;
+ let endDate=selectedDates[1]||selectedDates[0]||null;
+
+ let from=startDate
+ ?new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate(),0,0,0,0).getTime()
+ :0;
+
+ let to=endDate
+ ?new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate(),23,59,59,999).getTime()
+ :Infinity;
+
+ let sold=orders.filter(o=>
+  o.timestamp>=from && o.timestamp<=to
+ );
+
+ let sum=sold.reduce((s,o)=>s+o.total,0);
+
+ document.getElementById("reportTotal").textContent=money(sum);
+
+ document.getElementById("reportCount").textContent=sold.length;
+
+ let data={};
+
+ sold.forEach(o=>{
+
+  o.items.forEach(x=>{
+
+   if(!data[x.thai]) {
+    data[x.thai]={qty:0,total:0};
+   }
+
+   data[x.thai].qty+=x.qty;
+
+   data[x.thai].total+=x.qty*x.price;
+
+  });
+
+ });
+
+ document.getElementById("salesMenu").innerHTML=
+
+ Object.entries(data).length?
+
+ `<table>
+
+ <tr>
+ <th>เมนู</th>
+ <th>จำนวน</th>
+ <th>ยอดขาย</th>
+ </tr>
+
+ ${Object.entries(data).map(([n,v])=>`
+
+ <tr>
+ <td>${n}</td>
+ <td>${v.qty}</td>
+ <td>${money(v.total)}</td>
+ </tr>
+
+ `).join("")}
+
+ </table>`
+
+ :"<p>ยังไม่มีข้อมูลยอดขาย</p>";
+}
+
+/* =========================
+   จัดการสินค้า
+========================= */
+
+function renderStaffProducts() {
+
+ document.getElementById("staffProducts").innerHTML=
+
+ menus.map(m=>`
+
+ <div class="staff-row">
+
+ <span>${m.thai} - ${money(m.price)}</span>
+
+ <button onclick="deleteProduct(${m.id})"
+ style="color:red;background:none">
+ ลบ
+ </button>
+
+ </div>
+
+ `).join("");
+}
+
+function addProduct() {
+
+ let thai=document.getElementById("newThai").value.trim();
+
+ let name=document.getElementById("newName").value.trim();
+
+ let price=Number(document.getElementById("newPrice").value);
+
+ if(!thai||!name||price<=0) {
+  alert("กรุณากรอกข้อมูลให้ครบ");
+  return;
+ }
+
+ menus.push({
+
+ id:Date.now(),
+
+ thai,
+
+ name,
+
+ price,
+
+ desc:document.getElementById("newDesc").value,
+
+ cat:document.getElementById("newCat").value,
+
+ img:document.getElementById("newImg").value||
+ "https://placehold.co/600x400/f4e8dc/604638?text=MORI"
+
+ });
+
+ save();
+
+ renderProducts();
+
+ renderStaffProducts();
+
+ alert("เพิ่มสินค้าเรียบร้อย ♡");
+
+ ["newThai","newName","newPrice","newDesc","newImg"].forEach(id=>{
+  document.getElementById(id).value="";
+ });
+
+}
+
+function deleteProduct(id) {
+
+ if(!confirm("ต้องการลบสินค้านี้หรือไม่?")) return;
+
+ menus=menus.filter(m=>m.id!==id);
+
+ save();
+
+ renderProducts();
+
+ renderStaffProducts();
+}
+
+/* =========================
+   เริ่มต้นระบบ
+========================= */
+
+renderProducts();
+
+updateCount();
+
+selectPay("cash");
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
